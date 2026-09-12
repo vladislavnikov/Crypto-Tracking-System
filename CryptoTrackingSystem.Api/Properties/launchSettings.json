@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CryptoTrackingSystem.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50133;http://localhost:50134"
+    }
+  }
+}
