@@ -23,6 +23,7 @@ public static class ServiceExtensions
         services.AddScoped<IPriceService, PriceService>();
         services.AddScoped<ISmaService, SmaService>();
         services.AddHttpClient<IBinanceKlineClient, BinanceKlineClient>();
+        services.AddHostedService<BinanceWebSocketClient>();
 
         return services;
     }
