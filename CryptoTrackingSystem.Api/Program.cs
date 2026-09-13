@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddXmlSerializerFormatters();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -23,6 +23,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.Use(async (context, next) =>
+{
+    var contentType = context.Request.ContentType;
+    if (!string.IsNullOrEmpty(contentType) && !context.Request.Headers.ContainsKey("Accept"))
+        context.Request.Headers.Accept = contentType;
+
+    await next();
+});
 
 app.UseAuthorization();
 app.MapControllers();
