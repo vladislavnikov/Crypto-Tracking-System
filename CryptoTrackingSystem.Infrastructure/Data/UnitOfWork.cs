@@ -1,4 +1,4 @@
-using CryptoTrackingSystem.Infrastructure.Interfaces;
+using CryptoTrackingSystem.Core.Interfaces;
 using CryptoTrackingSystem.Infrastructure.Repositories;
 
 namespace CryptoTrackingSystem.Infrastructure.Data;

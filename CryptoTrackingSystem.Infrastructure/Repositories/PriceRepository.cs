@@ -1,9 +1,8 @@
-using CryptoTrackingSystem.Infrastructure.Interfaces;
+using CryptoTrackingSystem.Core.Interfaces;
 using CryptoTrackingSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptoTrackingSystem.Infrastructure.Repositories;
-
 
 public class PriceRepository : IPriceRepository
 {

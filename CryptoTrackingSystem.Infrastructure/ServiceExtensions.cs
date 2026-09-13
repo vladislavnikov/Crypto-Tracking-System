@@ -1,5 +1,6 @@
-using CryptoTrackingSystem.Infrastructure.Interfaces;
+using CryptoTrackingSystem.Core.Interfaces;
 using CryptoTrackingSystem.Infrastructure.Data;
+using CryptoTrackingSystem.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,7 @@ public static class ServiceExtensions
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IPriceService, PriceService>();
 
         return services;
     }

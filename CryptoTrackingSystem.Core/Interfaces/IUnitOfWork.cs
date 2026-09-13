@@ -1,4 +1,4 @@
-namespace CryptoTrackingSystem.Infrastructure.Interfaces;
+namespace CryptoTrackingSystem.Core.Interfaces;
 
 public interface IUnitOfWork : IDisposable
 {
