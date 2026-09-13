@@ -18,8 +18,11 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseAuthorization();
 app.MapControllers();

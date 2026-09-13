@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CryptoTrackingSystem.Core\CryptoTrackingSystem.Core.csproj" />
     <ProjectReference Include="..\CryptoTrackingSystem.Infrastructure\CryptoTrackingSystem.Infrastructure.csproj" />
   </ItemGroup>
 
