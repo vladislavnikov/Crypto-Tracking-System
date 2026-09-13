@@ -1,6 +1,7 @@
 using CryptoTrackingSystem.Core.Interfaces;
-using CryptoTrackingSystem.Infrastructure.Data;
 using CryptoTrackingSystem.Core.Services;
+using CryptoTrackingSystem.Infrastructure.Binance;
+using CryptoTrackingSystem.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,8 @@ public static class ServiceExtensions
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IPriceService, PriceService>();
+        services.AddScoped<ISmaService, SmaService>();
+        services.AddHttpClient<IBinanceKlineClient, BinanceKlineClient>();
 
         return services;
     }

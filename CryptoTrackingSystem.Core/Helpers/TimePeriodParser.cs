@@ -42,4 +42,17 @@ public static class TimePeriodParser
             _ => throw new ArgumentOutOfRangeException(nameof(period))
         };
     }
+
+    public static string ToBinanceInterval(TimePeriod period)
+    {
+        return period switch
+        {
+            TimePeriod.OneMinute => "1m",
+            TimePeriod.FiveMinutes => "5m",
+            TimePeriod.ThirtyMinutes => "30m",
+            TimePeriod.OneDay => "1d",
+            TimePeriod.OneWeek => "1w",
+            _ => throw new ArgumentOutOfRangeException(nameof(period))
+        };
+    }
 }

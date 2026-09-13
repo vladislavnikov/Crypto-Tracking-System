@@ -1,5 +1,6 @@
 using CryptoTrackingSystem.Core.Interfaces;
 using CryptoTrackingSystem.Infrastructure.Data;
+using CryptoTrackingSystem.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CryptoTrackingSystem.Infrastructure.Repositories;
@@ -23,5 +24,17 @@ public class PriceRepository : IPriceRepository
             return null;
 
         return records.Average(r => r.Price);
+    }
+
+    public async Task AddPriceRecordAsync(string symbol, decimal price, DateTime timestamp)
+    {
+        _context.PriceRecords.Add(new PriceRecord
+        {
+            Symbol = symbol,
+            Price = price,
+            Timestamp = timestamp
+        });
+
+        await _context.SaveChangesAsync();
     }
 }
