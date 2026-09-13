@@ -3,16 +3,15 @@ using CryptoTrackingSystem.Core.Enums;
 using CryptoTrackingSystem.Core.Helpers;
 using CryptoTrackingSystem.Core.Interfaces;
 
+
 namespace CryptoTrackingSystem.Core.Services;
 
 public class SmaService : ISmaService
 {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IBinanceKlineClient _klineClient;
 
-    public SmaService(IUnitOfWork unitOfWork, IBinanceKlineClient klineClient)
+    public SmaService(IBinanceKlineClient klineClient)
     {
-        _unitOfWork = unitOfWork;
         _klineClient = klineClient;
     }
 
@@ -27,15 +26,7 @@ public class SmaService : ISmaService
             var bucketEnd = startDate - (periodSpan * i);
             var bucketStart = bucketEnd - periodSpan;
 
-            var avg = await _unitOfWork.Prices.GetAveragePriceAsync(upperSymbol, bucketStart, bucketEnd);
-
-            if (avg is null)
-            {
-                avg = await _klineClient.GetAveragePriceForPeriodAsync(upperSymbol, period, bucketStart, bucketEnd);
-
-                if (avg is not null)
-                    await _unitOfWork.Prices.AddPriceRecordAsync(upperSymbol, avg.Value, bucketStart);
-            }
+            var avg = await _klineClient.GetAveragePriceForPeriodAsync(upperSymbol, period, bucketStart, bucketEnd);
 
             if (avg is not null)
                 bucketAverages.Add(avg.Value);
