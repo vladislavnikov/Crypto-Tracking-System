@@ -27,9 +27,9 @@ update-database
 
 ## Run
 
+Depends on the project * `(.Console or .API)`, select it as Startup Project, then run it.
 
-
-The API starts a live Binance WebSocket stream in the background and populates the database automatically.
+Both apps start a live Binance WebSocket stream in the background and populates the database automatically.
 
 
 # API Endpoints

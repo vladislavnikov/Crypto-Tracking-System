@@ -14,6 +14,8 @@ var host = Host.CreateDefaultBuilder(args)
 var priceService = host.Services.GetRequiredService<IPriceService>();
 var smaService = host.Services.GetRequiredService<ISmaService>();
 
+await host.StartAsync();
+
 PrintHelp();
 
 while (true)
@@ -21,7 +23,11 @@ while (true)
     var input = Console.ReadLine()?.Trim();
 
     if (string.IsNullOrEmpty(input)) continue;
-    if (input == "exit") break;
+    if (input == "exit")
+    {
+        await host.StopAsync();
+        break;
+    }
 
     var parts = input.Split(' ');
 
