@@ -1,3 +1,4 @@
+using System.Globalization;
 using CryptoTrackingSystem.Core.Helpers;
 using CryptoTrackingSystem.Core.Interfaces;
 using CryptoTrackingSystem.Infrastructure;
@@ -48,19 +49,21 @@ while (true)
 void PrintHelp()
 {
     Console.WriteLine("Commands:");
-    Console.WriteLine("  24h {symbol}                          - 24h average price");
-    Console.WriteLine("  sma {symbol} {n} {p} [{startDate}]   - Simple moving average");
-    Console.WriteLine("  exit                                  - Quit");
+    Console.WriteLine("  24h {symbol} - 24h average price");
+    Console.WriteLine("  sma {symbol} {n} {p} [{startDate}] - Simple moving average");
+    Console.WriteLine("  exit - Quit");
 }
 
 async Task Handle24hAsync(string symbol)
 {
     var result = await priceService.Get24hAveragePriceAsync(symbol);
 
-    if (result is null)
+    if (result is null) { 
         Console.WriteLine($"No data found for {symbol.ToUpper()}.");
-    else
+    }
+    else { 
         Console.WriteLine($"{result.Symbol} 24h avg: {result.AveragePrice:F2} (from {result.From:u} to {result.To:u})");
+    }
 }
 
 async Task HandleSmaAsync(string[] parts)
@@ -86,22 +89,27 @@ async Task HandleSmaAsync(string[] parts)
     }
 
     var startDate = DateTime.UtcNow;
-    if (parts.Length >= 5 && !DateTime.TryParse(parts[4], out startDate))
+    if (parts.Length >= 5)
     {
-        Console.WriteLine("Invalid start date format.");
-        return;
-    }
+        if (!DateTime.TryParse(parts[4], null, DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out startDate))
+        {
+            Console.WriteLine("Invalid start date format.");
+            return;
+        }
 
-    if (startDate > DateTime.UtcNow)
-    {
-        Console.WriteLine("Start date cannot be in the future.");
-        return;
+        if (startDate > DateTime.UtcNow)
+        {
+            Console.WriteLine("Start date cannot be in the future.");
+            return;
+        }
     }
 
     var result = await smaService.GetSmaAsync(symbol, n, period, startDate);
 
-    if (result is null)
+    if (result is null) { 
         Console.WriteLine($"No data found for {symbol.ToUpper()} in the requested window.");
-    else
+    }
+    else { 
         Console.WriteLine($"{result.Symbol} SMA({result.NumberOfDataPoints}x{result.PeriodLabel}): {result.Sma:F2} (from {result.From:u} to {result.To:u})");
+    }
 }

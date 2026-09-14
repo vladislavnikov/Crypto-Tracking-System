@@ -21,8 +21,8 @@ public class BinanceKlineClient : IBinanceKlineClient
     public async Task<decimal?> GetAveragePriceForPeriodAsync(string symbol, TimePeriod period, DateTime from, DateTime to)
     {
         var interval = TimePeriodParser.ToBinanceInterval(period);
-        var startMs = new DateTimeOffset(from, TimeSpan.Zero).ToUnixTimeMilliseconds();
-        var endMs = new DateTimeOffset(to, TimeSpan.Zero).ToUnixTimeMilliseconds();
+        var startMs = new DateTimeOffset(DateTime.SpecifyKind(from, DateTimeKind.Utc)).ToUnixTimeMilliseconds();
+        var endMs = new DateTimeOffset(DateTime.SpecifyKind(to, DateTimeKind.Utc)).ToUnixTimeMilliseconds();
 
         var url = BuildKlinesUrl(symbol, interval, startMs, endMs);
 
